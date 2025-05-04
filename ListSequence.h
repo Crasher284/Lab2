@@ -71,9 +71,8 @@ public:
     }
 
     Sequence<T>* concat(Sequence<T> *list) override{
-        ListSequence<T>* out = instance();
         auto* other = new MutableListSequence<T>(*list);
-        out->data->concat(other->data);
+        ListSequence<T>* out = new MutableListSequence<T>(*(data->concat(other->data)));
         return out;
     }
 
@@ -111,9 +110,9 @@ public:
 
     MutableListSequence() : ListSequence<T>(){}
 
-    explicit MutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
+    MutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
 
-    explicit MutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
+    MutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
 private:
     ListSequence<T>* instance() override{
         return this;
@@ -127,9 +126,9 @@ public:
 
     ImmutableListSequence() : ListSequence<T>(){}
 
-    explicit ImmutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
+    ImmutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
 
-    explicit ImmutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
+    ImmutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
 private:
     ListSequence<T>* instance() override{
         auto *out = new ImmutableListSequence<T>(*this->data);
