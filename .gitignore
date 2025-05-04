@@ -1,3 +1,6 @@
 .idea/
-.cmake-build-debug
-!.cmake-build-debug/*.txt
+cmake-build-debug/**
+!cmake-build-debug/Result.txt
+!cmake-build-debug/DynamicTest.txt
+!cmake-build-debug/LinkedTest.txt
+!cmake-build-debug/SequenceTest.txt

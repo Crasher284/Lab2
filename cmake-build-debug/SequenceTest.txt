@@ -1,0 +1,18 @@
+n n 0 5 1 2 3 4 5
+n c 1 0
+n c 3 0
+e o 0
+e o 1
+e o 2
+
+e f 2
+e l 2
+e g 2 2
+e s 2
+
+n a 0 11
+e o 0
+e o 3
+n p 2 12
+e o 2
+e o 4
