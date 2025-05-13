@@ -21,6 +21,8 @@ public:
     virtual Sequence<T>* concat(Sequence <T> *list) = 0;
     virtual void print(std::ostream& os) const = 0;
 
+    virtual Sequence<T>** split(bool(*select)(T), int& count) = 0;
+
 };
 
 template <typename T>

@@ -119,17 +119,47 @@ public:
         return out;
     }
 
+    Sequence<T>** split(bool(*select)(T), int& count) override{
+        count = 1;
+        for(int i=0;i<data->getSize();i++){
+            if(select(data->get(i))){
+                count++;
+            }
+        }
+        Sequence<T>** split = new Sequence<T>*[count];
+        for (int i = 0; i < count; i++) {
+            split[i] = new MutableArraySequence<T>();
+        }
+        int cnt = 0;
+        split[0] = new MutableArraySequence<T>;
+        for (int i = 0; i < data->getSize(); i++) {
+            if (select(data->get(i))) {
+                cnt++;
+            } else {
+                split[cnt]->append(data->get(i));
+            }
+        }
+
+        Sequence<T>** out = new Sequence<T>*[count];
+        for (int i = 0; i < count; i++) {
+            out[i] = split[i];
+        }
+        delete[] split;
+
+        return out;
+    }
+
     void print(std::ostream& os) const override{
         os << *data;
     }
 
     T& operator[](int index){
-        ListSequence<T> out = instance();
+        ArraySequence<T> out = instance();
         return out.data[index];
     }
 
     const T& operator[](int index) const{
-        ListSequence<T> out = instance();
+        ArraySequence<T> out = instance();
         return out.data[index];
     }
 
@@ -137,6 +167,7 @@ public:
         if(this != &other){
             delete data;
             data = new DynamicArray<T>(other.getLength());
+            size = other.getLength();
             for(int i=0;i<other.getLength();i++){
                 data->set(i, other.get(i));
             }

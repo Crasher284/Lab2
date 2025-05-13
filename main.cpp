@@ -6,6 +6,10 @@
 #include "ListSequence.h"
 #include "ArraySequence.h"
 
+bool odd(int a){
+    return a%2==0;
+}
+
 int main() {
     char cmd, cmd2;
     int tpe, pntr=0, size, id, id2, aid, aid2, el, cse;
@@ -150,7 +154,7 @@ int main() {
                                 break;
                             }
                             default:
-                                out << "TestError: unidentefied second command.";
+                                out << "TestError: unidentified second command.";
                                 return -1;
                         }
                         pntr++;
@@ -223,15 +227,15 @@ int main() {
                 return -1;
             }
             Sequence<int> *conts[25];
-            while (in >> cmd){
-                switch(cmd){
+            while (in >> cmd) {
+                switch (cmd) {
                     case 'n': {
-                        if(pntr == 25){
+                        if (pntr == 25) {
                             out << "TestError: there are cannot be more that 25 sequences in that kind of test.";
                             return -1;
                         }
                         in >> cmd2;
-                        switch(cmd2){
+                        switch (cmd2) {
                             case 'n': {
                                 in >> cse >> size;
                                 delete[] data;
@@ -239,7 +243,7 @@ int main() {
                                 for (int i = 0; i < size; i++) {
                                     in >> data[i];
                                 }
-                                switch(cse){
+                                switch (cse) {
                                     case 0:
                                         conts[pntr] = new MutableArraySequence<int>(data, size);
                                         break;
@@ -260,7 +264,7 @@ int main() {
                             }
                             case 'e': {
                                 in >> cse;
-                                switch(cse){
+                                switch (cse) {
                                     case 0:
                                         conts[pntr] = new MutableArraySequence<int>();
                                         break;
@@ -281,7 +285,7 @@ int main() {
                             }
                             case 'c': {
                                 in >> cse >> id;
-                                switch(cse){
+                                switch (cse) {
                                     case 0:
                                         conts[pntr] = new MutableArraySequence<int>(*(conts[id]));
                                         break;
@@ -301,12 +305,12 @@ int main() {
                                 break;
                             }
                             case 's': {
-                                in>> id >> aid >> aid2;
+                                in >> id >> aid >> aid2;
                                 conts[pntr] = conts[id]->getSubsequence(aid, aid2);
                                 break;
                             }
                             case 'a': {
-                                in>> id >> el;
+                                in >> id >> el;
                                 conts[pntr] = conts[id]->append(el);
                                 break;
                             }
@@ -373,11 +377,24 @@ int main() {
             }
             break;
         }
+        case 4:
+
         default:
             std::cerr << "Illogical input.";
             return -1;
     }
     delete[] data;
+    int a[5] = {1, 2, 3, 4, 5}, count;
+    auto* b = new MutableArraySequence<int>(a, 5);
+    auto* c = b->split(odd, count);
+    for (int i = 0; i < count; i++) {
+        out << *c[i] << " ";
+    }
+    for (int i = 0; i < count; i++) {
+        delete c[i];
+    }
+    delete[] c;
+    delete b;
     out.close();
     return 0;
 }

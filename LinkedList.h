@@ -180,6 +180,10 @@ public:
         return current->data;
     }
 
+    LinkedList<T>* operator+(const LinkedList<T>* other){
+        return concat(other);
+    }
+
     LinkedList<T>& operator=(const LinkedList<T>& other){
         if (this != &other) {
             Node* current = head;

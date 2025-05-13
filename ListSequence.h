@@ -73,6 +73,36 @@ public:
     Sequence<T>* concat(Sequence<T> *list) override{
         auto* other = new MutableListSequence<T>(*list);
         ListSequence<T>* out = new MutableListSequence<T>(*(data->concat(other->data)));
+        delete other;
+        return out;
+    }
+
+    Sequence<T>** split(bool(*select)(T), int& count) override{
+        count = 1;
+        for(int i=0;i<data->getLength();i++){
+            if(select(data->get(i))){
+                count++;
+            }
+        }
+        Sequence<T>** split = new Sequence<T>*[count];
+        for (int i = 0; i < count; i++) {
+            split[i] = new MutableListSequence<T>();
+        }
+        int cnt = 0;
+        split[0] = new MutableListSequence<T>;
+        for (int i = 0; i < data->getLength(); i++) {
+            if (select(data->get(i))) {
+                cnt++;
+            } else {
+                split[cnt]->append(data->get(i));
+            }
+        }
+        Sequence<T>** out = new Sequence<T>*[count];
+        for (int i = 0; i < count; i++) {
+            out[i] = split[i];
+        }
+        delete[] split;
+
         return out;
     }
 
@@ -110,9 +140,9 @@ public:
 
     MutableListSequence() : ListSequence<T>(){}
 
-    MutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
+    explicit MutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
 
-    MutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
+    explicit MutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
 private:
     ListSequence<T>* instance() override{
         return this;
@@ -126,9 +156,9 @@ public:
 
     ImmutableListSequence() : ListSequence<T>(){}
 
-    ImmutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
+    explicit ImmutableListSequence(LinkedList<T> &list) : ListSequence<T>(list){}
 
-    ImmutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
+    explicit ImmutableListSequence(Sequence<T> &array) : ListSequence<T>(array){}
 private:
     ListSequence<T>* instance() override{
         auto *out = new ImmutableListSequence<T>(*this->data);
