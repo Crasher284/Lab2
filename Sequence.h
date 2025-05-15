@@ -22,6 +22,7 @@ public:
     virtual void print(std::ostream& os) const = 0;
 
     virtual Sequence<T>** split(bool(*select)(T), int& count) = 0;
+    virtual ~Sequence() = default;
 
 };
 

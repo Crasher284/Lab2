@@ -84,7 +84,7 @@ public:
                 count++;
             }
         }
-        Sequence<T>** split = new Sequence<T>*[count];
+        auto** split = new Sequence<T>*[count];
         for (int i = 0; i < count; i++) {
             split[i] = new MutableListSequence<T>();
         }
@@ -97,7 +97,7 @@ public:
                 split[cnt]->append(data->get(i));
             }
         }
-        Sequence<T>** out = new Sequence<T>*[count];
+        auto** out = new Sequence<T>*[count];
         for (int i = 0; i < count; i++) {
             out[i] = split[i];
         }

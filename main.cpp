@@ -377,8 +377,6 @@ int main() {
             }
             break;
         }
-        case 4:
-
         default:
             std::cerr << "Illogical input.";
             return -1;
@@ -386,7 +384,7 @@ int main() {
     delete[] data;
     int a[5] = {1, 2, 3, 4, 5}, count;
     auto* b = new MutableArraySequence<int>(a, 5);
-    auto* c = b->split(odd, count);
+    auto** c = b->split(odd, count);
     for (int i = 0; i < count; i++) {
         out << *c[i] << " ";
     }

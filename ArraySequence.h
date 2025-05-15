@@ -126,7 +126,7 @@ public:
                 count++;
             }
         }
-        Sequence<T>** split = new Sequence<T>*[count];
+        auto** split = new Sequence<T>*[count];
         for (int i = 0; i < count; i++) {
             split[i] = new MutableArraySequence<T>();
         }
@@ -140,7 +140,7 @@ public:
             }
         }
 
-        Sequence<T>** out = new Sequence<T>*[count];
+        auto** out = new Sequence<T>*[count];
         for (int i = 0; i < count; i++) {
             out[i] = split[i];
         }
@@ -172,6 +172,7 @@ public:
                 data->set(i, other.get(i));
             }
         }
+        return *this;
     }
 
     friend std::ostream& operator << (std::ostream &os, const ArraySequence<T> &array){
